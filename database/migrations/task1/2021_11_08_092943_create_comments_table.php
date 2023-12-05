@@ -11,13 +11,16 @@ class CreateCommentsTable extends Migration
      *
      * @return void
      */
+
+    // Поміняв в user_id тип bigInteger на unsignedBigInteger
+    // Також поміняв в comment_id тип unsignedInteger на unsignedBigInteger і добавив, щоб могло бути нулем через те що звертається саме на себе
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedInteger('comment_id');
+            $table->unsignedBigInteger('comment_id')->nullable();
             $table->foreign('comment_id')->references('id')->on('comments');
             $table->string('comment_text');
             $table->timestamps();
